@@ -9,7 +9,7 @@ import org.apache.hadoop.io.Writable;
 public class Node implements Writable{
 	
 	String adjacencyList;
-	int distanceFromSource;
+	String distanceFromSource;
 	String color;
 	String parent;
 	
@@ -17,7 +17,7 @@ public class Node implements Writable{
 	public void readFields(DataInput in) throws IOException {
 		
 		adjacencyList = in.readUTF();
-		distanceFromSource = in.readInt();
+		distanceFromSource = in.readUTF();
 		color = in.readUTF();
 		parent = in.readUTF();
 	}
@@ -26,12 +26,12 @@ public class Node implements Writable{
 	public void write(DataOutput out) throws IOException {
 		
 		out.writeUTF(adjacencyList);
-		out.writeInt(distanceFromSource);
+		out.writeUTF(distanceFromSource);
 		out.writeUTF(color);
 		out.writeUTF(parent);
 	}
 	
-	public Node(String adjacencyList, int distanceFromSource, String color,
+	public Node(String adjacencyList, String distanceFromSource, String color,
 			String parent) {
 		super();
 		this.adjacencyList = adjacencyList;
@@ -41,6 +41,10 @@ public class Node implements Writable{
 	}
 	
 	public Node(){
-		this(null, 0, "GREY", null);
+		this("", "Integer.MAX_VALUE", "WHITE", "");
+	}
+	
+	public String toString(){
+		return adjacencyList+"|"+distanceFromSource+"|"+color+"|"+parent;
 	}
 }

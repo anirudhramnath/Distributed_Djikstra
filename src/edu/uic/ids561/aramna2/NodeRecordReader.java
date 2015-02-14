@@ -45,7 +45,7 @@ public class NodeRecordReader implements RecordReader<LongWritable, Node>{
 
 		// parse the values 
 		String adjacencyList = null;
-		int distanceFromSource = 0;
+		String distanceFromSource = null;
 		String color = null;
 		String parent = null;
 		
@@ -55,14 +55,7 @@ public class NodeRecordReader implements RecordReader<LongWritable, Node>{
 			
 			inputKey = Long.parseLong(pieces[0].trim());
 			adjacencyList = valueSplit[0].trim();
-			
-			if(valueSplit[1].trim().equalsIgnoreCase("Integer.MAX_VALUE")){
-				distanceFromSource = Integer.MAX_VALUE;
-			}
-			else{
-				distanceFromSource = Integer.parseInt(valueSplit[1].trim());
-			}
-			
+			distanceFromSource = valueSplit[1].trim();
 			color = valueSplit[2].trim();
 			parent = valueSplit[3].trim();
 			

@@ -2,6 +2,7 @@ package edu.uic.ids561.aramna2;
 
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapred.FileInputFormat;
 import org.apache.hadoop.mapred.FileOutputFormat;
@@ -18,8 +19,8 @@ public class Djikstra {
 		conf.setInputFormat(NodeInputFormat.class);
 		
 		// TODO: specify output types
-		conf.setOutputKeyClass(Text.class);
-		conf.setOutputValueClass(IntWritable.class);
+		conf.setOutputKeyClass(LongWritable.class);
+		conf.setOutputValueClass(Node.class);
 
 		// TODO: specify input and output DIRECTORIES (not files)
 		FileInputFormat.addInputPath(conf, new Path(args[0]));
@@ -29,7 +30,7 @@ public class Djikstra {
 		conf.setMapperClass(DjikstraMapper.class);
 
 		// TODO: specify a reducer
-		conf.setReducerClass(org.apache.hadoop.mapred.lib.IdentityReducer.class);
+		conf.setReducerClass(DjikstraReducer.class);
 
 		client.setConf(conf);
 		try {
