@@ -1,9 +1,7 @@
 package edu.uic.ids561.aramna2;
 
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
-import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapred.FileInputFormat;
 import org.apache.hadoop.mapred.FileOutputFormat;
 import org.apache.hadoop.mapred.JobClient;
@@ -11,6 +9,8 @@ import org.apache.hadoop.mapred.JobConf;
 
 public class Djikstra {
 
+	public static enum GrayCounter { NUMBER_OF_GRAY_NODES }
+	
 	public static void main(String[] args) {
 		JobClient client = new JobClient();
 		JobConf conf = new JobConf(edu.uic.ids561.aramna2.Djikstra.class);

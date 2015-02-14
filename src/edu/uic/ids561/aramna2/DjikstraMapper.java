@@ -2,9 +2,9 @@ package edu.uic.ids561.aramna2;
 
 import java.io.IOException;
 
-import org.apache.hadoop.io.IntWritable;
+import jdk.nashorn.internal.runtime.Context;
+
 import org.apache.hadoop.io.LongWritable;
-import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapred.MapReduceBase;
 import org.apache.hadoop.mapred.Mapper;
 import org.apache.hadoop.mapred.OutputCollector;
