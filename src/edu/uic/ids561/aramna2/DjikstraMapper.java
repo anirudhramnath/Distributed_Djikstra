@@ -2,8 +2,6 @@ package edu.uic.ids561.aramna2;
 
 import java.io.IOException;
 
-import jdk.nashorn.internal.runtime.Context;
-
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.mapred.MapReduceBase;
 import org.apache.hadoop.mapred.Mapper;
@@ -30,6 +28,8 @@ public class DjikstraMapper extends MapReduceBase implements Mapper<LongWritable
 				
 				// emit a new GRAY node for each exploded value # exploded.length-1 because there is a trailing `,` at the end of the list
 				for(int i=0 ; i<exploded.length ; i++){
+					
+					reporter.getCounter(Djikstra.GrayCounter.NUMBER_OF_GRAY_NODES).increment(1);
 					
 					Node node = new Node("", String.valueOf(Long.parseLong(value.distanceFromSource)+1), "GRAY", key.toString());
 					

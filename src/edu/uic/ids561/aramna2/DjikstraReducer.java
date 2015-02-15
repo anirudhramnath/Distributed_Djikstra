@@ -45,8 +45,12 @@ public class DjikstraReducer extends MapReduceBase implements Reducer<LongWritab
 			
 			if(darkestColor.equalsIgnoreCase("WHITE") && (node.color.equalsIgnoreCase("GRAY") || node.color.equalsIgnoreCase("BLACK"))){
 				darkestColor = node.color;
+				if(darkestColor.equalsIgnoreCase("BLACK")){
+					reporter.getCounter(Djikstra.GrayCounter.NUMBER_OF_GRAY_NODES).increment(-1);
+				}
 			}
 			else if(darkestColor.equalsIgnoreCase("GRAY") && (node.color.equalsIgnoreCase("BLACK"))){
+				reporter.getCounter(Djikstra.GrayCounter.NUMBER_OF_GRAY_NODES).increment(-1);
 				darkestColor = node.color;
 			}
 			else if(darkestColor.equalsIgnoreCase("BLACK")){
