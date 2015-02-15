@@ -14,6 +14,7 @@ public class Djikstra {
 	}
 	
 	public static void main(String[] args) {
+		
 		JobClient client = new JobClient();
 		JobConf conf = new JobConf(edu.uic.ids561.aramna2.Djikstra.class);
 
@@ -26,8 +27,8 @@ public class Djikstra {
 			conf.setInputFormat(NodeInputFormat.class);
 			
 			// TODO: specify output types
-			conf.setOutputKeyClass(LongWritable.class);
-			conf.setOutputValueClass(Node.class);
+			conf.setMapOutputKeyClass(LongWritable.class);
+			conf.setMapOutputValueClass(Node.class);
 	
 			String input, output;
 			
@@ -44,7 +45,7 @@ public class Djikstra {
 			// TODO: specify input and output DIRECTORIES (not files)
 			FileInputFormat.setInputPaths(conf, new Path(input));
 			FileOutputFormat.setOutputPath(conf, new Path(output));
-	
+
 			// TODO: specify a mapper
 			conf.setMapperClass(DjikstraMapper.class);
 	

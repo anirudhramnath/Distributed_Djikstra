@@ -8,8 +8,6 @@ import org.apache.hadoop.mapred.Mapper;
 import org.apache.hadoop.mapred.OutputCollector;
 import org.apache.hadoop.mapred.Reporter;
 
-import edu.uic.ids561.aramna2.Djikstra.GrayCounter;
-
 public class DjikstraMapper extends MapReduceBase implements Mapper<LongWritable, Node, LongWritable, Node> {
 
 	@Override
@@ -26,13 +24,13 @@ public class DjikstraMapper extends MapReduceBase implements Mapper<LongWritable
 			
 			// explode the adjacency list if GRAY node is found
 			if( value.color.equalsIgnoreCase("GRAY") ){
-				System.out.println("GRAY NODE:"+"|"+value.toString());
+				System.out.println("GRAY NODE:"+""+value.toString());
 				String exploded[] = value.adjacencyList.trim().split(",");
 				
 				// emit a new GRAY node for each exploded value # exploded.length-1 because there is a trailing `,` at the end of the list
 				for(int i=0 ; i<exploded.length ; i++){
 					
-					Node node = new Node("", String.valueOf(Long.parseLong(value.distanceFromSource)+1), "GRAY", key.toString());
+					Node node = new Node("null", String.valueOf(Long.parseLong(value.distanceFromSource)+1), "GRAY", key.toString());
 					
 					output.collect(new LongWritable(Long.parseLong(exploded[i])), node);
 				}

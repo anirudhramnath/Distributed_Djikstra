@@ -10,8 +10,6 @@ import org.apache.hadoop.mapred.OutputCollector;
 import org.apache.hadoop.mapred.Reducer;
 import org.apache.hadoop.mapred.Reporter;
 
-import edu.uic.ids561.aramna2.Djikstra.GrayCounter;
-
 public class DjikstraReducer extends MapReduceBase implements Reducer<LongWritable, Iterator<Node>, LongWritable, Text> {
 
 	@Override
@@ -29,6 +27,7 @@ public class DjikstraReducer extends MapReduceBase implements Reducer<LongWritab
 			Node node = (Node) values.next();
 			
 			String distanceInNode = node.distanceFromSource;
+			System.out.println(node.toString()+"-distance");
 			
 			int distanceInteger = -1;
 			
@@ -36,7 +35,7 @@ public class DjikstraReducer extends MapReduceBase implements Reducer<LongWritab
 				distanceInteger = Integer.parseInt(distanceInNode);
 			}
 			
-			if(node.adjacencyList != null && !node.adjacencyList.equalsIgnoreCase("")){
+			if(node.adjacencyList != null && !node.adjacencyList.equalsIgnoreCase("null")){
 				list = node.adjacencyList;
 			}
 			
