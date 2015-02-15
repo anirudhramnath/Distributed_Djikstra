@@ -1,18 +1,19 @@
 package edu.uic.ids561.aramna2;
 
-import java.util.Dictionary;
-
-import org.apache.hadoop.fs.Path; 
-import org.apache.hadoop.conf.*;
-import org.apache.hadoop.io.*;
-import org.apache.hadoop.mapred.*;
-import org.apache.hadoop.util.*;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.mapred.FileInputFormat;
+import org.apache.hadoop.mapred.FileOutputFormat;
+import org.apache.hadoop.mapred.JobClient;
+import org.apache.hadoop.mapred.JobConf;
 
 public class Djikstra {
 
-	public static enum GrayCounter { NUMBER_OF_GRAY_NODES }
+	static class GrayCounter {
+		public static int counter = 1;
+	}
 	
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) {
 		JobClient client = new JobClient();
 		JobConf conf = new JobConf(edu.uic.ids561.aramna2.Djikstra.class);
 
@@ -30,17 +31,18 @@ public class Djikstra {
 	
 			String input, output;
 			
-			if(0==iterationCount){
+			if(0 == iterationCount){
 				input = args[0];
 			}
 			else{
 				input = args[1] + iterationCount;
+				System.out.println("**Input file**"+input);
 			}
 			
 			output = args[1] + (iterationCount+1);
 			
 			// TODO: specify input and output DIRECTORIES (not files)
-			FileInputFormat.addInputPath(conf, new Path(input));
+			FileInputFormat.setInputPaths(conf, new Path(input));
 			FileOutputFormat.setOutputPath(conf, new Path(output));
 	
 			// TODO: specify a mapper
@@ -50,13 +52,14 @@ public class Djikstra {
 			conf.setReducerClass(DjikstraReducer.class);
 	
 			client.setConf(conf);
-			
 			try {
 				JobClient.runJob(conf);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-
+			
+			iterationCount ++;
+			terminationValue = GrayCounter.counter;
 		}
 	}
 

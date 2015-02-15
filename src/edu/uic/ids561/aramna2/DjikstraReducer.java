@@ -10,6 +10,8 @@ import org.apache.hadoop.mapred.OutputCollector;
 import org.apache.hadoop.mapred.Reducer;
 import org.apache.hadoop.mapred.Reporter;
 
+import edu.uic.ids561.aramna2.Djikstra.GrayCounter;
+
 public class DjikstraReducer extends MapReduceBase implements Reducer<LongWritable, Iterator<Node>, LongWritable, Text> {
 
 	@Override
@@ -19,7 +21,7 @@ public class DjikstraReducer extends MapReduceBase implements Reducer<LongWritab
 		
 		String darkestColor="WHITE";
 		int minDistance = Integer.MAX_VALUE;
-		String parent="";
+		String parent="null";
 		String list="";
 		
 		while(values.hasNext()){
@@ -45,15 +47,11 @@ public class DjikstraReducer extends MapReduceBase implements Reducer<LongWritab
 			
 			if(darkestColor.equalsIgnoreCase("WHITE") && (node.color.equalsIgnoreCase("GRAY") || node.color.equalsIgnoreCase("BLACK"))){
 				darkestColor = node.color;
-				if(darkestColor.equalsIgnoreCase("BLACK")){
-					reporter.getCounter(Djikstra.GrayCounter.NUMBER_OF_GRAY_NODES).increment(-1);
-				}
 			}
 			else if(darkestColor.equalsIgnoreCase("GRAY") && (node.color.equalsIgnoreCase("BLACK"))){
-				reporter.getCounter(Djikstra.GrayCounter.NUMBER_OF_GRAY_NODES).increment(-1);
 				darkestColor = node.color;
 			}
-			else if(darkestColor.equalsIgnoreCase("BLACK")){
+			else if(node.color.equalsIgnoreCase("BLACK")){
 				darkestColor = "BLACK";
 			}
 		}
@@ -62,6 +60,11 @@ public class DjikstraReducer extends MapReduceBase implements Reducer<LongWritab
 		
 		if(minDistance != Integer.MAX_VALUE){
 			minDistanceString = String.valueOf(minDistance);
+		}
+		
+		if(darkestColor.equalsIgnoreCase("GRAY")){
+			Djikstra.GrayCounter.counter ++;
+			System.out.println("Incremented:"+Djikstra.GrayCounter.counter);
 		}
 		
 		Node outputNode = new Node(list, minDistanceString, darkestColor, parent);
