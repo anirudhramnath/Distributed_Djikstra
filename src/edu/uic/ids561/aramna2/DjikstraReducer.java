@@ -27,7 +27,6 @@ public class DjikstraReducer extends MapReduceBase implements Reducer<LongWritab
 			Node node = (Node) values.next();
 			
 			String distanceInNode = node.distanceFromSource;
-			System.out.println(node.toString()+"-distance");
 			
 			int distanceInteger = -1;
 			
@@ -35,15 +34,18 @@ public class DjikstraReducer extends MapReduceBase implements Reducer<LongWritab
 				distanceInteger = Integer.parseInt(distanceInNode);
 			}
 			
+			// Find the adjacency list for the node in `key`
 			if(node.adjacencyList != null && !node.adjacencyList.equalsIgnoreCase("null")){
 				list = node.adjacencyList;
 			}
 			
+			// Logic to choose the min distance
 			if( distanceInteger != -1 && distanceInteger < minDistance){
 				minDistance = distanceInteger;
 				parent = node.parent;
 			}
 			
+			// Logic to choose the darkest color
 			if(darkestColor.equalsIgnoreCase("WHITE") && (node.color.equalsIgnoreCase("GRAY") || node.color.equalsIgnoreCase("BLACK"))){
 				darkestColor = node.color;
 			}
@@ -61,9 +63,9 @@ public class DjikstraReducer extends MapReduceBase implements Reducer<LongWritab
 			minDistanceString = String.valueOf(minDistance);
 		}
 		
+		// Increase the counter value by 1 if a new GRAY node is generated
 		if(darkestColor.equalsIgnoreCase("GRAY")){
 			Djikstra.GrayCounter.counter ++;
-			System.out.println("Incremented:"+Djikstra.GrayCounter.counter);
 		}
 		
 		Node outputNode = new Node(list, minDistanceString, darkestColor, parent);

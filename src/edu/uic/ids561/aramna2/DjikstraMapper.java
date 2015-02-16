@@ -14,13 +14,6 @@ public class DjikstraMapper extends MapReduceBase implements Mapper<LongWritable
 	public void map(LongWritable key, Node value,
 			OutputCollector<LongWritable, Node> output, Reporter reporter)
 			throws IOException {
-
-			/*System.out.println("success !!!");
-			System.out.println("key:"+key.toString());
-			System.out.println("list:"+value.adjacencyList.toString());
-			System.out.println("distance:"+value.distanceFromSource);
-			System.out.println("color:"+value.color.toString());
-			System.out.println("parent:"+value.parent.toString());*/
 			
 			// explode the adjacency list if GRAY node is found
 			if( value.color.equalsIgnoreCase("GRAY") ){
@@ -36,9 +29,8 @@ public class DjikstraMapper extends MapReduceBase implements Mapper<LongWritable
 				}
 				
 				// also emit the processed GRAY node as BLACK
-				Djikstra.GrayCounter.counter --;
+				Djikstra.GrayCounter.counter --; // Decrease the counter value by 1
 				value.color = "BLACK";
-				System.out.println("Emiting BLACK NODE:"+key.toString()+"\t"+value.toString());
 				output.collect(key, value);
 			}
 			
