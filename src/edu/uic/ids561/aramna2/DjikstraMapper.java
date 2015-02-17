@@ -20,9 +20,10 @@ public class DjikstraMapper extends MapReduceBase implements Mapper<LongWritable
 				System.out.println("GRAY NODE:"+""+value.toString());
 				String exploded[] = value.adjacencyList.trim().split(",");
 				
-				// emit a new GRAY node for each exploded value # exploded.length-1 because there is a trailing `,` at the end of the list
+				// emit a new GRAY node for each exploded value
 				for(int i=0 ; i<exploded.length ; i++){
 					
+					// creating new GRAY node
 					Node node = new Node("null", String.valueOf(Long.parseLong(value.distanceFromSource)+1), "GRAY", key.toString());
 					
 					output.collect(new LongWritable(Long.parseLong(exploded[i])), node);

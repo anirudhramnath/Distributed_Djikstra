@@ -70,6 +70,7 @@ public class DjikstraReducer extends MapReduceBase implements Reducer<LongWritab
 		
 		Node outputNode = new Node(list, minDistanceString, darkestColor, parent);
 		
+		// writing the output to file
 		output.collect( key, new Text(outputNode.toString()) );
 	}
 

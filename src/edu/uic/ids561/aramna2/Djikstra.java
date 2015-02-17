@@ -15,6 +15,15 @@ public class Djikstra {
 	
 	public static void main(String[] args) {
 		
+		// Before even running the MapReduce job, we are calculating the Graph Statistics (How many nodes & edges, and the adjacency list for each node)
+		
+		try {
+			new GraphStatistics().generateGraphStats();
+		} catch (Exception e1) {
+			System.out.println("Could not calculate graph stats");
+			System.exit(1);
+		}
+		
 		JobClient client = new JobClient();
 		JobConf conf = new JobConf(edu.uic.ids561.aramna2.Djikstra.class);
 
@@ -26,7 +35,7 @@ public class Djikstra {
 			// Input format
 			conf.setInputFormat(NodeInputFormat.class);
 			
-			// TODO: specify output types
+			// specify output types
 			conf.setMapOutputKeyClass(LongWritable.class);
 			conf.setMapOutputValueClass(Node.class);
 	
@@ -37,19 +46,18 @@ public class Djikstra {
 			}
 			else{
 				input = args[1] + iterationCount;
-				System.out.println("**Input file**"+input);
 			}
 			
 			output = args[1] + (iterationCount+1);
 			
-			// TODO: specify input and output DIRECTORIES (not files)
+			// specify input and output DIRECTORIES (not files)
 			FileInputFormat.setInputPaths(conf, new Path(input));
 			FileOutputFormat.setOutputPath(conf, new Path(output));
 
-			// TODO: specify a mapper
+			// specify a mapper
 			conf.setMapperClass(DjikstraMapper.class);
 	
-			// TODO: specify a reducer
+			// specify a reducer
 			conf.setReducerClass(DjikstraReducer.class);
 	
 			client.setConf(conf);

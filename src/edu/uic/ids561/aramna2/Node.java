@@ -6,6 +6,12 @@ import java.io.IOException;
 
 import org.apache.hadoop.io.Writable;
 
+/**
+ * This class is the data structure used to represent a `Node`.
+ * It will used in the custom InputFormat - `NodeInputFormat` which will pass an object of this class as value to the `map` function.
+ * @author aramna2
+ *
+ */
 public class Node implements Writable{
 	
 	String adjacencyList;

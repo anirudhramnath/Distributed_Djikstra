@@ -43,7 +43,6 @@ public class NodeRecordReader implements RecordReader<LongWritable, Node>{
 			throw new IOException("Invalid record received");
 		}
 
-		// parse the values 
 		String adjacencyList = null;
 		String distanceFromSource = null;
 		String color = null;
@@ -52,7 +51,7 @@ public class NodeRecordReader implements RecordReader<LongWritable, Node>{
 		long inputKey = 0;
 
 		try{
-			
+			// parsing the values from the input file
 			inputKey = Long.parseLong(pieces[0].trim());
 			adjacencyList = valueSplit[0].trim();
 			distanceFromSource = valueSplit[1].trim();
@@ -64,7 +63,7 @@ public class NodeRecordReader implements RecordReader<LongWritable, Node>{
 			e.printStackTrace();
 		}
 		
-		// overwrite the output values
+		// overwrite the output values and set appropriate value from the input file
 		key.set(inputKey);
 		value.adjacencyList = adjacencyList;
 		value.distanceFromSource = distanceFromSource;

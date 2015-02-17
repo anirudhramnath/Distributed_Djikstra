@@ -15,7 +15,7 @@ public class NodeInputFormat extends FileInputFormat<LongWritable, Node>{
 	@Override
 	public RecordReader<LongWritable, Node> getRecordReader(InputSplit arg0,
 			JobConf arg1, Reporter arg2) throws IOException {
-		// TODO Auto-generated method stub
+
 		return new NodeRecordReader(arg1, (FileSplit) arg0);
 	}
 
