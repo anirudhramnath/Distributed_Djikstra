@@ -51,6 +51,8 @@ public class GraphStatistics {
             // we are doing `edgeCount / 2` since the graph is undirected
             writer.println("\n\n\nGraph Stats:\nNumber of nodes in file: "+nodeCount+"\nNumber of edges in file: "+edgeCount/2);
           
+            Dijkstra.GrayCounter.TOTAL_NUM_NODES = nodeCount;
+            
         } catch (Exception ex) {
         	throw ex;
           

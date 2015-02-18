@@ -53,10 +53,24 @@ public class NodeRecordReader implements RecordReader<LongWritable, Node>{
 		try{
 			// parsing the values from the input file
 			inputKey = Long.parseLong(pieces[0].trim());
+			
+			// identifying source node # if source node is found, color it GRAY
+			if( inputKey == (long) Dijkstra.GrayCounter.SOURCE_NODE && !Dijkstra.GrayCounter.SOURCE_NODE_FOUND ){
+
+				distanceFromSource = "0";
+				color = "GRAY";
+				parent = "source";
+				
+				Dijkstra.GrayCounter.SOURCE_NODE_FOUND = true;
+			}
+			else{
+				distanceFromSource = valueSplit[1].trim();
+				color = valueSplit[2].trim();
+				parent = valueSplit[3].trim();
+			}
+			
+			// adjacency list remains the same
 			adjacencyList = valueSplit[0].trim();
-			distanceFromSource = valueSplit[1].trim();
-			color = valueSplit[2].trim();
-			parent = valueSplit[3].trim();
 			
 		}
 		catch(Exception e){
