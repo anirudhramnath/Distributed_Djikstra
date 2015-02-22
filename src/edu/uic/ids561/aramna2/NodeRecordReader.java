@@ -30,7 +30,7 @@ public class NodeRecordReader implements RecordReader<LongWritable, Node>{
 			return false;
 		}
 		
-		// parse the lineValue which is in the format: source<tab>adjacency list | distance from source | color | parent node
+		// parse the lineValue which is in the format: node_id<tab>adjacency list | distance from source | color | parent node
 		String [] pieces = lineValue.toString().split("	");
 		
 		if (pieces.length != 2) {

@@ -26,12 +26,12 @@ public class Dijkstra {
 			System.exit(1);
 		}
 		else{
-			// set `args[2]` to `SOURCE_NODE` variable
+			// set `args[1]` to `SOURCE_NODE` variable
 			try{
 				GrayCounter.SOURCE_NODE = Integer.parseInt(args[1]);
 			}
 			catch(Exception ex){
-				System.out.println("args[2] should be an number");
+				System.out.println("args[1] should be an number");
 				System.exit(1);
 			}
 		}
