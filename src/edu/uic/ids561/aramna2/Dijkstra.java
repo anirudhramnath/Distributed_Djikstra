@@ -38,7 +38,7 @@ public class Dijkstra {
 		
 		// Before running the MapReduce job, we are calculating the Graph Statistics (How many nodes & edges, and the adjacency list for each node)
 		try {
-			new GraphStatistics().generateGraphStats();
+			new GraphStatistics().generateGraphStats(args[0]);
 		} catch (Exception e1) {
 			System.out.println("Could not calculate graph stats. Please check if you have created a folder named `stats`");
 			System.exit(1);

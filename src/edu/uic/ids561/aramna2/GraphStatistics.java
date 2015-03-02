@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 
 public class GraphStatistics {
 
-	public void generateGraphStats() throws Exception{
+	public void generateGraphStats(String inputFileName) throws Exception{
 		FileInputStream fis = null;
         BufferedReader reader = null;
         PrintWriter writer = null;
@@ -17,7 +17,7 @@ public class GraphStatistics {
         try {
         	
         	// read the file
-            fis = new FileInputStream("input/input.txt");
+            fis = new FileInputStream(inputFileName+"/input.txt");
             reader = new BufferedReader(new InputStreamReader(fis));
           
             // create PrintWriter object to write to a new file called `GraphStats.txt`
